@@ -3,7 +3,7 @@ export const login = (req, res)=> {
 };
 
 export const logout = (req, res)=> {
-    console.log('logoutt user');
+    console.log('logout user');
 };
 
 export const signup = (req, res)=> {
