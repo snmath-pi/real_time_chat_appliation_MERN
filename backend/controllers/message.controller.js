@@ -30,7 +30,7 @@ export const sendMessage = async (req, res) => {
 		// await conversation.save();
 		// await newMessage.save();
 
-		// this will run in parallel
+		// this will run in paralle
 		await Promise.all([conversation.save(), newMessage.save()]);
 
 		
