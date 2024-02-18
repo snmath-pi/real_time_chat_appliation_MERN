@@ -2,7 +2,7 @@ import Conversation from "../Models/conversation.model.js";
 import Message from "../Models/message.model.js";
 
 export const sendMessage = async (req, res) => {
-    try {
+	try {
 		const { message } = req.body;
 		const { id: receiverId } = req.params;
 		const senderId = req.user._id;
@@ -30,10 +30,10 @@ export const sendMessage = async (req, res) => {
 		// await conversation.save();
 		// await newMessage.save();
 
-		// this will run in paralle
+		// thisf will run in paralle
 		await Promise.all([conversation.save(), newMessage.save()]);
 
-		
+
 		res.status(201).json(newMessage);
 	} catch (error) {
 		console.log("Error in sendMessage controller: ", error.message);
