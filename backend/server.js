@@ -18,7 +18,7 @@ dotenv.config(); // to run this port at 8000
 
 app.get("/", (req, res)=>{
     // root route http://localhost:5000/
-    res.send('hello world!!')
+    res.send('hello world')
 })
 
 // middleware

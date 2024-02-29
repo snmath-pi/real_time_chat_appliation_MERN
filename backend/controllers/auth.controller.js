@@ -4,7 +4,7 @@ import generateTokenandSetCookie from "../utils/generatetoken.js";
 
 export const signup = async (req, res)=> {
     try {
-        const {fullname, username, password, confirmPassword, gender} = req.body; 
+        const {fullName, username, password, confirmPassword, gender} = req.body; 
 
 
         if(password !== confirmPassword) {
@@ -14,7 +14,7 @@ export const signup = async (req, res)=> {
         const user = await User.findOne({username});
 
         if(user) {
-            return res.status(400).json({error: "user already exists"});
+            return res.status(400).json({error: "Username already exists"});
         }
 
         // hash password here
@@ -30,8 +30,8 @@ export const signup = async (req, res)=> {
 
 
         const newUser = new User({
-            fullname,
-            username,
+            fullName,
+            username, 
             password:hashedPassword,
             gender,
             profilePic: gender==='male' ? boyProfilePic : girlProfilePic,
@@ -39,23 +39,23 @@ export const signup = async (req, res)=> {
 
         if(newUser) {
             // generate JWT TOKEN
-            generateTokenandSetCookie(newUser._id, res);
+            generateTokenAndSetCookie(newUser._id, res);
             await newUser.save();
 
             res.status(201).json({
                 _id: newUser._id,
-                fullname: newUser.fullname,
+                fullName: newUser.fullName,
                 username: newUser.username,
                 profilePic: newUser.profilePic,
             });
         } else {
-            res.status(400).json({error: "invalid user data"});
+            res.status(400).json({error: "Invalid user data"});
         }
 
         
 
     } catch(error) {
-        console.log("error is signup controller", error.message);
+        console.log("error in signup controller", error.message);
         res.status(500).json({error:"internal server error"})
     }
 };
@@ -67,21 +67,18 @@ export const login =  async (req, res)=> {
 
     try {
 		const { username, password } = req.body;
-        console.log(password)
 		const user = await User.findOne({ username });
-		if (!user) {
-            return res.status(400).json({ error: "Invalid Username" });
+        const isPasswordCorrect = await bcrypt.compare(password, user?.password || "");
+		if (!user || !isPasswordCorrect) {
+            return res.status(400).json({ error: "Invalid Username or Password" });
         }
-        const isPasswordCorrect = await bcrypt.compare(password, user.password || "")        
-        if (!isPasswordCorrect) {
-            return res.status(400).json({ error: "Invalid Password" });
-        }
+        
 
 		generateTokenandSetCookie(user._id, res);
 
 		res.status(200).json({
 			_id: user._id,
-			fullname: user.fullName,
+			fullName: user.fullName,
 			username: user.username,
 			profilePic: user.profilePic,
 		});
