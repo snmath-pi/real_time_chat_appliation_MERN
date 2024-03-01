@@ -39,7 +39,7 @@ export const signup = async (req, res)=> {
 
         if(newUser) {
             // generate JWT TOKEN
-            generateTokenAndSetCookie(newUser._id, res);
+            generateTokenandSetCookie(newUser._id, res);
             await newUser.save();
 
             res.status(201).json({

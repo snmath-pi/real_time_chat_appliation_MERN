@@ -2,14 +2,14 @@ import { useState } from "react"
 import useConversation from "../zustand/useConversation"
 import toast from "react-hot-toast"
 
-const useSendMessage = (props) => {
+const useSendMessage = () => {
     const [loading, setLoading] = useState(false)
     const {messages, setMessage, selectedConversation}  = useConversation()
 
     const sendMessage = async (message)=> {
         setLoading(true);
         try {
-            const res = await fetch(`/api/messages/send/:${selectedConversation._id}`, {
+            const res = await fetch(`/api/messages/send/${selectedConversation._id}`, {
                 method:'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -20,14 +20,14 @@ const useSendMessage = (props) => {
             if(data.error) {
                 throw new Error(data.error)
             }
-            setMessage({... messages, data});
+            setMessage([... messages, data]);
         } catch (error) {
             toast.error(error.message)
         } finally {
             setLoading(false);
         }
     }
-    return {setMessage, loading};
+    return {sendMessage, loading};
 }
 
 export default useSendMessage
