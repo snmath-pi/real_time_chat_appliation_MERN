@@ -16,13 +16,15 @@ const Login = () => {
       <div className="w-full p-6 rounded-lg shadow-md bg-gray-400 bg-clip-padding backdrop-filer backdrop-blur-lg bg-opacity-0">
         <h1 className="text-3xl font-semibold text-center text-gray-300">
           Login
-          <span className="text-green-300"> OtakuChat (オタク)</span>
+          <span className="text-orange-500"> OtakuChat (オタク)</span>
         </h1>
 
         <form onSubmit={handleSubmit}>
           <div>
             <label className="label p-2">
-              <span className="text-base label-text">Username</span>
+              <span className="text-base label-text text-gray-300">
+                Username
+              </span>
             </label>
             <input
               type="text"
@@ -34,7 +36,9 @@ const Login = () => {
           </div>
           <div>
             <label className="label">
-              <span className="text-base label-text">Password</span>
+              <span className="text-base label-text text-gray-300">
+                Password
+              </span>
             </label>
             <input
               type="password"
@@ -47,7 +51,7 @@ const Login = () => {
 
           <Link
             to="/signup"
-            className="text-gray-600 text-sm hover:underline hover:text-blue-600 mt-2 inline-block"
+            className="text-gray-400 text-sm hover:underline hover:text-blue-600 mt-2 inline-block"
           >
             {"Don't"} have an account?
           </Link>
