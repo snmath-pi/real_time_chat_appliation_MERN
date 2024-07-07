@@ -1,6 +1,6 @@
 # Real-Time Chat Application using MERN Stack
 
-![Project Image](url_to_image)
+
 
 ## Overview
 Describe the purpose and features of your application briefly.
